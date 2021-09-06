@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2B87AC9926E6BEBA003F6B9A /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B87AC9826E6BEBA003F6B9A /* DataController.swift */; };
 		2B87AC9B26E6C3C9003F6B9A /* CityWeatherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B87AC9A26E6C3C9003F6B9A /* CityWeatherResponse.swift */; };
+		2B87AC9E26E6C6E9003F6B9A /* WeatherDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2B87AC9C26E6C6E9003F6B9A /* WeatherDataModel.xcdatamodeld */; };
 		2BAE298B26E5C3CF00C644E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAE298A26E5C3CF00C644E5 /* AppDelegate.swift */; };
 		2BAE298D26E5C3CF00C644E5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAE298C26E5C3CF00C644E5 /* SceneDelegate.swift */; };
 		2BAE298F26E5C3CF00C644E5 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAE298E26E5C3CF00C644E5 /* InitialViewController.swift */; };
@@ -23,6 +24,7 @@
 /* Begin PBXFileReference section */
 		2B87AC9826E6BEBA003F6B9A /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		2B87AC9A26E6C3C9003F6B9A /* CityWeatherResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityWeatherResponse.swift; sourceTree = "<group>"; };
+		2B87AC9D26E6C6E9003F6B9A /* WeatherDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WeatherDataModel.xcdatamodel; sourceTree = "<group>"; };
 		2BAE298726E5C3CF00C644E5 /* Weather Forecast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Weather Forecast.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BAE298A26E5C3CF00C644E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2BAE298C26E5C3CF00C644E5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				2B87AC9826E6BEBA003F6B9A /* DataController.swift */,
+				2B87AC9C26E6C6E9003F6B9A /* WeatherDataModel.xcdatamodeld */,
 				2B87AC9A26E6C3C9003F6B9A /* CityWeatherResponse.swift */,
 				2BAE29A526E5CAD300C644E5 /* Utility */,
 			);
@@ -187,6 +190,7 @@
 				2B87AC9926E6BEBA003F6B9A /* DataController.swift in Sources */,
 				2BAE298F26E5C3CF00C644E5 /* InitialViewController.swift in Sources */,
 				2BAE298B26E5C3CF00C644E5 /* AppDelegate.swift in Sources */,
+				2B87AC9E26E6C6E9003F6B9A /* WeatherDataModel.xcdatamodeld in Sources */,
 				2BAE29A226E5C72F00C644E5 /* DetailViewController.swift in Sources */,
 				2B87AC9B26E6C3C9003F6B9A /* CityWeatherResponse.swift in Sources */,
 				2BAE29A026E5C6E500C644E5 /* SearchViewController.swift in Sources */,
@@ -393,6 +397,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		2B87AC9C26E6C6E9003F6B9A /* WeatherDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				2B87AC9D26E6C6E9003F6B9A /* WeatherDataModel.xcdatamodel */,
+			);
+			currentVersion = 2B87AC9D26E6C6E9003F6B9A /* WeatherDataModel.xcdatamodel */;
+			path = WeatherDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 2BAE297F26E5C3CF00C644E5 /* Project object */;
 }
