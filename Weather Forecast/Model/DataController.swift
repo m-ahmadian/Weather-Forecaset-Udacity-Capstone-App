@@ -31,18 +31,17 @@ class DataController {
 
         viewContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
         backgroundContext.mergePolicy = NSMergePolicy.mergeByPropertyStoreTrump
-
-        // function to load persistent store and call configure contexts (main and private)
-        func load(completion: (() -> Void)? = nil) {
-            persistentContainer.loadPersistentStores { storeDescripion, error in
-                guard error == nil else {
-                    fatalError(error!.localizedDescription)
-                }
-                // self.atoSaveViewContext()
-                self.configureContexts()
-                completion?()
-            }
-        }
     }
 
+    // function to load persistent store and call configure contexts (main and private)
+    func load(completion: (() -> Void)? = nil) {
+        persistentContainer.loadPersistentStores { storeDescripion, error in
+            guard error == nil else {
+                fatalError(error!.localizedDescription)
+            }
+            // self.atoSaveViewContext()
+            self.configureContexts()
+            completion?()
+        }
+    }
 }

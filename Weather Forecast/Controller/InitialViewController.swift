@@ -9,6 +9,10 @@ import UIKit
 
 class InitialViewController: UIViewController {
 
+    // MARK: Properties
+    // A reference to the core data stack
+    var dataController: DataController!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
