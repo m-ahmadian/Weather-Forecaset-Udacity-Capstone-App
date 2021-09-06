@@ -63,4 +63,35 @@ class Service {
         task.resume()
         return task
     }
+
+    // A class func to use in the SearchViewController to search for the city using a GET request from Geobytes Web API
+    class func searchForCity(url: URL, completion: @escaping ([String]?, Error?) -> Void) -> URLSessionTask {
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data else {
+                DispatchQueue.main.async {
+                    completion([], error)
+                }
+                return
+            }
+            // If we drop the first and last two characters of the response, we will get an array of Strings
+            let stringData = String(data: data, encoding: .utf8)
+            let str1 = stringData?.dropFirst(2)
+            let str2 = str1?.dropLast(2)
+
+            if let convertedData = str2?.data(using: .utf8) {
+                do {
+                    let response = try JSONSerialization.jsonObject(with: convertedData, options: []) as? [String]
+                    DispatchQueue.main.async {
+                        completion(response, nil)
+                    }
+                } catch {
+                    DispatchQueue.main.async {
+                        completion([], error)
+                    }
+                }
+            }
+        }
+        task.resume()
+        return task
+    }
 }
