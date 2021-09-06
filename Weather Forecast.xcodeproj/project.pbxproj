@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B87AC9926E6BEBA003F6B9A /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B87AC9826E6BEBA003F6B9A /* DataController.swift */; };
 		2BAE298B26E5C3CF00C644E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAE298A26E5C3CF00C644E5 /* AppDelegate.swift */; };
 		2BAE298D26E5C3CF00C644E5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAE298C26E5C3CF00C644E5 /* SceneDelegate.swift */; };
 		2BAE298F26E5C3CF00C644E5 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAE298E26E5C3CF00C644E5 /* InitialViewController.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2B87AC9826E6BEBA003F6B9A /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		2BAE298726E5C3CF00C644E5 /* Weather Forecast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Weather Forecast.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BAE298A26E5C3CF00C644E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2BAE298C26E5C3CF00C644E5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				2BAE29A526E5CAD300C644E5 /* Utility */,
+				2B87AC9826E6BEBA003F6B9A /* DataController.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -178,6 +181,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B87AC9926E6BEBA003F6B9A /* DataController.swift in Sources */,
 				2BAE298F26E5C3CF00C644E5 /* InitialViewController.swift in Sources */,
 				2BAE298B26E5C3CF00C644E5 /* AppDelegate.swift in Sources */,
 				2BAE29A226E5C72F00C644E5 /* DetailViewController.swift in Sources */,
@@ -332,7 +336,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 45U4TPHVMG;
-				INFOPLIST_FILE = "Weather Forecast/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Weather Forecast/View/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -351,7 +355,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 45U4TPHVMG;
-				INFOPLIST_FILE = "Weather Forecast/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Weather Forecast/View/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
