@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-class InitialViewController: UIViewController, NSFetchedResultsControllerDelegate {
+class InitialViewController: UIViewController {
 
     // MARK: - Properties
     // A reference to the core data stack
@@ -20,11 +20,7 @@ class InitialViewController: UIViewController, NSFetchedResultsControllerDelegat
     @IBOutlet weak var tableView: UITableView!
 
     // Function to set up fetch request and fetched results controller
-
-
     fileprivate func setUpFetchedResultsController() {
-        // Do any additional setup after loading the view.
-
         let fetchRequest: NSFetchRequest<City> = City.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
@@ -134,6 +130,48 @@ extension InitialViewController: UISearchBarDelegate {
             tableView.reloadData()
         } catch {
             print(error.localizedDescription)
+        }
+    }
+}
+
+// MARK: - Extension for FetchedResultsControllerDelegate methods to automatically track and update the UI
+extension InitialViewController: NSFetchedResultsControllerDelegate {
+
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.beginUpdates()
+    }
+
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.endUpdates()
+    }
+
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch type {
+        case .insert:
+            tableView.insertRows(at: [newIndexPath!], with: .fade)
+        case .delete:
+            tableView.deleteRows(at: [indexPath!], with: .fade)
+        case .update:
+            tableView.reloadRows(at: [indexPath!], with: .fade)
+        case .move:
+            tableView.moveRow(at: indexPath!, to: newIndexPath!)
+        @unknown default:
+            fatalError()
+        }
+    }
+
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        let indexSet = IndexSet(integer: sectionIndex)
+
+        switch type {
+        case .insert:
+            tableView.insertSections(indexSet, with: .fade)
+        case .delete:
+            tableView.deleteSections(indexSet, with: .fade)
+        case .move, .update:
+            fatalError("Invalid change type in controller(_:didChange:atSectionIndex:for:). Only .insert or .delete should be possible.")
+        @unknown default:
+            fatalError()
         }
     }
 }
