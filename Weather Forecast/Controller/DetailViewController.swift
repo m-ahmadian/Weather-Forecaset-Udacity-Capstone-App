@@ -9,6 +9,11 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
+    
+
+    // MARK: - Properties
+    var city: City!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 

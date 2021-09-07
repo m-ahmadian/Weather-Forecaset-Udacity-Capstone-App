@@ -67,5 +67,20 @@ class InitialViewController: UIViewController, NSFetchedResultsControllerDelegat
         tableView.reloadData()
     }
 
+    // MARK: - Navigation
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Inject the dependency of core data stack and passing the selected city if needed, based on the segue destination
+        if segue.identifier == "SearchViewController" {
+            let searchVC = segue.destination as? SearchViewController
+            searchVC?.dataController = dataController
+        } else if segue.identifier == "DetailViewController" {
+            let detailVC = segue.destination as? DetailViewController
+            if let indexPath = tableView.indexPathForSelectedRow {
+                detailVC?.city = fetchedResultsController.object(at: indexPath)
+            }
+        }
+    }
+
 }
 

@@ -9,6 +9,9 @@ import UIKit
 
 class SearchViewController: UIViewController {
 
+    // MARK: - Properties
+    var dataController: DataController!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 

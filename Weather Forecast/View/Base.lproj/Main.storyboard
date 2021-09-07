@@ -50,7 +50,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="Rzf-sl-yaS" kind="show" id="67w-eD-Tpr"/>
+                                            <segue destination="Rzf-sl-yaS" kind="show" identifier="DetailViewController" id="67w-eD-Tpr"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -62,7 +62,7 @@
                     <navigationItem key="navigationItem" title="Cities" id="NJl-NQ-9G4">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="4fl-0x-qcT">
                             <connections>
-                                <segue destination="ak6-S2-Oss" kind="show" id="B1N-JK-D6c"/>
+                                <segue destination="ak6-S2-Oss" kind="show" identifier="SearchViewController" id="B1N-JK-D6c"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
