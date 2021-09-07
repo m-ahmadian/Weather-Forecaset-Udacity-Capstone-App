@@ -6,18 +6,66 @@
 //
 
 import UIKit
+import CoreData
 
-class InitialViewController: UIViewController {
-
-    // MARK: Properties
-    // A reference to the core data stack
-    var dataController: DataController!
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
+class InitialViewController: UIViewController, NSFetchedResultsControllerDelegate, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        <#code#>
     }
 
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        <#code#>
+    }
+
+
+    // MARK: - Properties
+    // A reference to the core data stack
+    var dataController: DataController!
+    var fetchedResultsController: NSFetchedResultsController<City>!
+
+    // MARK: - Outlets
+    @IBOutlet weak var searchView: UISearchBar!
+    @IBOutlet weak var tableView: UITableView!
+
+    // Function to set up fetch request and fetched results controller
+
+
+    fileprivate func setUpFetchedResultsController() {
+        // Do any additional setup after loading the view.
+
+        let fetchRequest: NSFetchRequest<City> = City.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: "name", cacheName: nil)
+        // Set delegate to self
+        fetchedResultsController.delegate = self
+
+        // Perform fetch on fetchedResultsController with handling errors
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            print("The fetch could not be performed: \(error.localizedDescription)")
+        }
+    }
+
+    // MARK: - View Life Cycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Set the delegates
+        searchView.delegate = self
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // Call the method to configure out fetchedResultsController
+        setUpFetchedResultsController()
+        // Delete the search text and reload tableView whenever this view is about to appear
+        searchView.text = ""
+        tableView.reloadData()
+    }
 
 }
 

@@ -66,6 +66,10 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="searchView" destination="shE-xG-c7v" id="iT6-8B-VvH"/>
+                        <outlet property="tableView" destination="LU6-GV-LpT" id="HbL-Ud-xwW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
