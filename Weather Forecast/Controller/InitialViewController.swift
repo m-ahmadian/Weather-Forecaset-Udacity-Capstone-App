@@ -8,15 +8,7 @@
 import UIKit
 import CoreData
 
-class InitialViewController: UIViewController, NSFetchedResultsControllerDelegate, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        <#code#>
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
-    }
-
+class InitialViewController: UIViewController, NSFetchedResultsControllerDelegate, UISearchBarDelegate {
 
     // MARK: - Properties
     // A reference to the core data stack
@@ -90,6 +82,35 @@ class InitialViewController: UIViewController, NSFetchedResultsControllerDelegat
         dataController.viewContext.delete(cityToDelete)
         try? dataController.viewContext.save()
     }
-
 }
 
+// MARK: - Extension for TableViewDelegate & DataSource methods
+extension InitialViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return fetchedResultsController.sections?.count ?? 1
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return fetchedResultsController.sections?[section].numberOfObjects ?? 1
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cityCell", for: indexPath)
+        let city = fetchedResultsController.object(at: indexPath)
+
+        cell.textLabel?.text = city.name
+        cell.detailTextLabel?.text = city.country
+
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        switch editingStyle {
+        case .delete:
+            // Enable the delete feature by caling its helper method
+            deleteCity(at: indexPath)
+        default:
+            () // Unsupported
+        }
+    }
+}
