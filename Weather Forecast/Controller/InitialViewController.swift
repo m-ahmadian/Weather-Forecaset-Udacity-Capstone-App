@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-class InitialViewController: UIViewController, NSFetchedResultsControllerDelegate, UISearchBarDelegate {
+class InitialViewController: UIViewController, NSFetchedResultsControllerDelegate {
 
     // MARK: - Properties
     // A reference to the core data stack
@@ -86,6 +86,7 @@ class InitialViewController: UIViewController, NSFetchedResultsControllerDelegat
 
 // MARK: - Extension for TableViewDelegate & DataSource methods
 extension InitialViewController: UITableViewDelegate, UITableViewDataSource {
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return fetchedResultsController.sections?.count ?? 1
     }
@@ -111,6 +112,28 @@ extension InitialViewController: UITableViewDelegate, UITableViewDataSource {
             deleteCity(at: indexPath)
         default:
             () // Unsupported
+        }
+    }
+}
+
+// MARK: - Extension for SearchBarDelegate method
+extension InitialViewController: UISearchBarDelegate {
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        // Add a predicate to fetch city names that begin with the search text, if the text is not empty
+        let predicate: NSPredicate?
+        if !searchText.isEmpty {
+            predicate = NSPredicate(format: "name BEGINSWITH[C] %@", searchText)
+        } else {
+            predicate = nil
+        }
+        fetchedResultsController.fetchRequest.predicate = predicate
+
+        do {
+            try fetchedResultsController.performFetch()
+            tableView.reloadData()
+        } catch {
+            print(error.localizedDescription)
         }
     }
 }
