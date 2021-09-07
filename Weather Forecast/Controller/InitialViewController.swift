@@ -82,5 +82,14 @@ class InitialViewController: UIViewController, NSFetchedResultsControllerDelegat
         }
     }
 
+    // MARK: - Helper Method
+    func deleteCity(at indexPath: IndexPath) {
+        // Get a reference to the object that needs to be deleted
+        let cityToDelete = fetchedResultsController.object(at: indexPath)
+        // Delete the object from the context and save it to persist data to the store
+        dataController.viewContext.delete(cityToDelete)
+        try? dataController.viewContext.save()
+    }
+
 }
 
