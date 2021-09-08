@@ -45,3 +45,21 @@ class DataController {
         }
     }
 }
+
+extension DataController {
+    // A method to save the context automatically at regular intervals if there are changes, in case of unexpected app termination
+    func autoSaveViewContext(interval: TimeInterval = 60) {
+        print("autosaving")
+        guard interval > 0 else {
+            print("Cannot set negative value to autosave interval!")
+            return
+        }
+
+        if viewContext.hasChanges {
+            try? viewContext.save()
+        }
+        DispatchQueue.main.async {
+            self.autoSaveViewContext(interval: interval)
+        }
+    }
+}
