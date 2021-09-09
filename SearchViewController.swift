@@ -54,16 +54,27 @@ class SearchViewController: UIViewController, NSFetchedResultsControllerDelegate
         tableView.dataSource = self
         setUpFetchedResultsController()
     }
-    
 
-    /*
-    // MARK: - Navigation
+    // MARK: - Helper Method
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    // Method to add the selected city to the context and persist the data to the store
+    func addCity(name: String) {
+        // Instantiate the managed object associated with the main context
+        let city = City(context: dataController.viewContext)
+        // Separate citty name from province and country in the response string
+        city.name = name.components(separatedBy: ",")[0]
+        city.country = name.components(separatedBy: ",")[2]
+        try? dataController.viewContext.save()
+
+        // Configure and present the alertVC
+        let alertVC = UIAlertController(title: "Successful", message: "\(city.name ?? "") has been added to the list of your cities", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) { [weak self] action in
+            // Pop to the root vc after data being persisted and user is presented
+            self?.navigationController?.popViewController(animated: true)
+        }
+        alertVC.addAction(okAction)
+        alertVC.view.layoutIfNeeded()
+        present(alertVC, animated: true, completion: nil)
     }
-    */
 
 }
