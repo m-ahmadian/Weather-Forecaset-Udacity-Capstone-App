@@ -138,10 +138,10 @@
             </objects>
             <point key="canvasLocation" x="902.89855072463774" y="823.66071428571422"/>
         </scene>
-        <!--View Controller-->
+        <!--Search View Controller-->
         <scene sceneID="wL5-jS-J73">
             <objects>
-                <viewController id="ak6-S2-Oss" sceneMemberID="viewController">
+                <viewController id="ak6-S2-Oss" customClass="SearchViewController" customModule="Weather_Forecast" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fsG-D2-8qI">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -187,6 +187,10 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="vML-hJ-o8G"/>
+                    <connections>
+                        <outlet property="searchBar" destination="pKN-5h-wsC" id="CoW-5n-CaL"/>
+                        <outlet property="tableView" destination="053-Od-7Gb" id="yza-Ed-SnL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OCK-dd-h4N" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
