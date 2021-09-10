@@ -11,12 +11,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
+    // Initialize a persistent container as soon as the app launches to configure Core Data Stack
+    let dataController = DataController(modelName: "WeatherDataModel")
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+
+        // Call this method on app launch to load the persistent store and configure the main queue and private queue contexts
+        dataController.load()
+
+        // Use Dependency Injection to pass the core data stack reference to the root and then initial view controller
+        let navigationController = window?.rootViewController as! UINavigationController
+        let initialViewController = navigationController.topViewController as! InitialViewController
+        initialViewController.dataController = dataController
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

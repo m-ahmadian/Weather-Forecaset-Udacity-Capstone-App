@@ -12,19 +12,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    // Initialize a persistent container as soon as the app launches to configure Core Data Stack
-    let dataController = DataController(modelName: "WeatherDataModel")
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        // Call this method on app launch to load the persistent store and configure the main queue and private queue contexts
-        dataController.load()
-
-        // Use Dependency Injection to pass the core data stack reference to the root and then initial view controller
-        let navigationController = window?.rootViewController as! UINavigationController
-        let initialViewController = navigationController.topViewController as! InitialViewController
-        initialViewController.dataController = dataController
-        
         return true
     }
 

@@ -133,6 +133,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="cXF-9n-IAQ"/>
+                    <connections>
+                        <outlet property="humidityLabel" destination="Eae-GY-SZg" id="fmM-BA-Nuo"/>
+                        <outlet property="tempLabel" destination="zg4-1J-z06" id="vuj-Rr-5Qc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Lf-ZT-AQY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
