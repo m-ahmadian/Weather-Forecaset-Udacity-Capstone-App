@@ -8,9 +8,11 @@
 import CoreData
 import UIKit
 
-class SearchViewController: UIViewController, NSFetchedResultsControllerDelegate, UISearchBarDelegate {
+class SearchViewController: UIViewController, NSFetchedResultsControllerDelegate {
 
     // MARK: - Properties
+    // A reference to the returned URLSession Task to cancel after a new request is initiated - To handle slow connections and avoid unnecessary network requests
+    var currentSearchTask: URLSessionTask?
     // An optional array of strings to hold the city search network response
     var cities: [String]?
     // A instance of core data stack that is injected in the presenting view (prepare for segue)
@@ -100,5 +102,31 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         if let cityName = cities?[indexPath.row] {
             addCity(name: cityName)
         }
+    }
+}
+
+// MARK: - Extension - UISearchBarDelegate Method
+extension SearchViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        // Cancel the previous task when a new one is initiated - Enhances performance for slow connections
+        currentSearchTask?.cancel()
+        guard searchText.count > 2 else {
+            cities?.removeAll()
+            tableView.reloadData()
+            return
+        }
+
+        currentSearchTask = Service.searchForCity(url: Service.Endpoints.getCity(searchText).url, completion: handleSearchCityResponse(cities:error:))
+    }
+
+    // Helper Method - Completion Handler
+    func handleSearchCityResponse(cities: [String]?, error: Error?) {
+        guard error == nil else {
+            print(error?.localizedDescription ?? "")
+            return
+        }
+        // Fills the cities array with the API response, to power the tableView dataSource
+        self.cities = cities
+        tableView.reloadData()
     }
 }
