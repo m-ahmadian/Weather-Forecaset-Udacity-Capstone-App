@@ -8,17 +8,11 @@
 import CoreData
 import UIKit
 
-class SearchViewController: UIViewController, NSFetchedResultsControllerDelegate, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        <#code#>
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
-    }
-
+class SearchViewController: UIViewController, NSFetchedResultsControllerDelegate, UISearchBarDelegate {
 
     // MARK: - Properties
+    // An optional array of strings to hold the city search network response
+    var cities: [String]?
     // A instance of core data stack that is injected in the presenting view (prepare for segue)
     var dataController: DataController!
     var fetchedResultsController: NSFetchedResultsController<City>!
@@ -76,5 +70,35 @@ class SearchViewController: UIViewController, NSFetchedResultsControllerDelegate
         alertVC.view.layoutIfNeeded()
         present(alertVC, animated: true, completion: nil)
     }
+}
 
+// MARK: - Extension - UITableViewDelegate & DataSource Methods
+extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return cities?.count ?? 0
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cityCell", for: indexPath)
+        let city = cities?[indexPath.row]
+        cell.textLabel?.text = city?.components(separatedBy: ",")[0] ?? ""
+
+        if let count = city?.count {
+            guard count > 2 && cell.textLabel?.text != nil else {
+                return cell
+            }
+            cell.detailTextLabel?.text = city?.components(separatedBy: ",")[2] ?? ""
+        }
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let cityName = cities?[indexPath.row] {
+            addCity(name: cityName)
+        }
+    }
 }
