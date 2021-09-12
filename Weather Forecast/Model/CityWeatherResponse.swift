@@ -10,6 +10,7 @@ import Foundation
 struct CityWeatherResponse: Codable {
     let main: Main
     let name: String
+    let weather: [Weather]
 }
 
 struct Main: Codable {
@@ -28,4 +29,11 @@ struct Main: Codable {
         case pressure
         case humidity
     }
+}
+
+struct Weather: Codable {
+    let id: Int
+    let main: String
+    let description: String
+    let icon: String
 }

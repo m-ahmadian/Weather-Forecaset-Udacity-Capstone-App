@@ -14,6 +14,7 @@ class DetailViewController: UIViewController {
 
     // MARK: - Outlets
     @IBOutlet weak var humidityLabel: UILabel!
+    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var tempLabel: UILabel!
 
     override func viewDidLoad() {
@@ -35,6 +36,17 @@ class DetailViewController: UIViewController {
         DispatchQueue.main.async {
             self.humidityLabel.text = "\(String(describing: response.main.humidity))"
             self.tempLabel.text = "\(String(describing: Int(response.main.temp)))"
+            let icon = response.weather[0].icon
+            self.updateImageView(cityIcon: icon)
+        }
+    }
+
+    func updateImageView(cityIcon: String) {
+        Service.downloadImage(urlString: "http://openweathermap.org/img/w/\(cityIcon).png") { image, error in
+            guard error == nil else {
+                return
+            }
+            self.imageView.image = image
         }
     }
 

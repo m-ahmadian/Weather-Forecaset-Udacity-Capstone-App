@@ -104,17 +104,20 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="uug-iB-x3T">
                                 <rect key="frame" x="20" y="299" width="374" height="352"/>
                                 <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Niy-V8-3Aj">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="117.5"/>
+                                    </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="VV8-16-fnx">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="176"/>
+                                        <rect key="frame" x="0.0" y="117.5" width="374" height="117"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Humidity" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="clV-zq-Dqa">
-                                                <rect key="frame" x="0.0" y="0.0" width="187" height="176"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="187" height="117"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eae-GY-SZg" userLabel="Humidity Label">
-                                                <rect key="frame" x="187" y="0.0" width="187" height="176"/>
+                                                <rect key="frame" x="187" y="0.0" width="187" height="117"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -122,16 +125,16 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="6Om-hK-hQW">
-                                        <rect key="frame" x="0.0" y="176" width="374" height="176"/>
+                                        <rect key="frame" x="0.0" y="234.5" width="374" height="117.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Temperature" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o0B-VT-RuM" userLabel="Temperature">
-                                                <rect key="frame" x="0.0" y="0.0" width="187" height="176"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="187" height="117.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zg4-1J-z06" userLabel="Temperature Label">
-                                                <rect key="frame" x="187" y="0.0" width="187" height="176"/>
+                                                <rect key="frame" x="187" y="0.0" width="187" height="117.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -153,6 +156,7 @@
                     <navigationItem key="navigationItem" id="cXF-9n-IAQ"/>
                     <connections>
                         <outlet property="humidityLabel" destination="Eae-GY-SZg" id="fmM-BA-Nuo"/>
+                        <outlet property="imageView" destination="Niy-V8-3Aj" id="qre-0y-iI9"/>
                         <outlet property="tempLabel" destination="zg4-1J-z06" id="vuj-Rr-5Qc"/>
                     </connections>
                 </viewController>
