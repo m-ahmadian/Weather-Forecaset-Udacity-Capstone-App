@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class Service {
     // Create a shared instance for Singleton design pattern - However, Dependency Injecttion is used for this app
@@ -13,7 +14,7 @@ class Service {
     private init() {}
 
     // API Key
-    static let apiKey = "f676b945a92af6494be8db095c6567b"
+    static let apiKey = "f676b945a92af64945be8db095c6567b"
 
     enum Endpoints {
         static let baseURL = "https://api.openweathermap.org/data/2.5/weather"
@@ -93,5 +94,25 @@ class Service {
         }
         task.resume()
         return task
+    }
+
+    static func downloadImage(urlString: String, completion: @escaping (UIImage?, Error?) -> Void) {
+        guard let url = URL(string: urlString) else {
+            DispatchQueue.main.async {
+                completion(nil, nil)
+            }
+            return
+        }
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data else {
+                completion(nil, error)
+                return
+            }
+            let downloadedImage = UIImage(data: data)
+            DispatchQueue.main.async {
+                completion(downloadedImage, nil)
+            }
+        }
+        task.resume()
     }
 }
