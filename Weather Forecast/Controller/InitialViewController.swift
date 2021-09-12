@@ -16,6 +16,7 @@ class InitialViewController: UIViewController {
     var fetchedResultsController: NSFetchedResultsController<City>!
 
     // MARK: - Outlets
+    @IBOutlet weak var refreshButton: UIButton!
     @IBOutlet weak var searchView: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
 
@@ -40,6 +41,7 @@ class InitialViewController: UIViewController {
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Weather of your favourite cities"
         // Set the delegates
         searchView.delegate = self
         tableView.delegate = self
@@ -53,6 +55,7 @@ class InitialViewController: UIViewController {
         // Delete the search text and reload tableView whenever this view is about to appear
         searchView.text = ""
         tableView.reloadData()
+        updateRefreshButtonState()
     }
 
     // MARK: - Navigation
@@ -70,13 +73,23 @@ class InitialViewController: UIViewController {
         }
     }
 
-    // MARK: - Helper Method
+    // MARK: - Helper Methods
     func deleteCity(at indexPath: IndexPath) {
         // Get a reference to the object that needs to be deleted
         let cityToDelete = fetchedResultsController.object(at: indexPath)
         // Delete the object from the context and save it to persist data to the store
         dataController.viewContext.delete(cityToDelete)
         try? dataController.viewContext.save()
+    }
+
+    func updateRefreshButtonState() {
+        guard tableView.numberOfSections != 0 else {
+            refreshButton.isHidden = true
+            return
+        }
+        UIView.transition(with: refreshButton, duration: 0.5, options: .transitionFlipFromRight, animations: {
+            self.refreshButton.isHidden = self.fetchedResultsController.sections?.count == 0
+        })
     }
 }
 
@@ -151,6 +164,7 @@ extension InitialViewController: NSFetchedResultsControllerDelegate {
             tableView.insertRows(at: [newIndexPath!], with: .fade)
         case .delete:
             tableView.deleteRows(at: [indexPath!], with: .fade)
+            updateRefreshButtonState()
         case .update:
             tableView.reloadRows(at: [indexPath!], with: .fade)
         case .move:
