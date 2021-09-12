@@ -13,6 +13,11 @@ class DetailViewController: UIViewController {
     var city: City!
 
     // MARK: - Outlets
+    @IBOutlet weak var cityNameLabel: UILabel!
+    @IBOutlet weak var cityHighDegreeLabel: UILabel!
+    @IBOutlet weak var degreeLabel: UILabel!
+    @IBOutlet weak var cityLowDegreeLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var humidityLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var tempLabel: UILabel!
@@ -34,11 +39,20 @@ class DetailViewController: UIViewController {
             return
         }
         DispatchQueue.main.async {
-            self.humidityLabel.text = "\(String(describing: response.main.humidity))"
-            self.tempLabel.text = "\(String(describing: Int(response.main.temp)))"
-            let icon = response.weather[0].icon
-            self.updateImageView(cityIcon: icon)
+            self.configureCityDetails(response: response)
         }
+    }
+
+    func configureCityDetails(response: CityWeatherResponse) {
+        self.humidityLabel.text = "\(String(describing: response.main.humidity))%"
+        self.tempLabel.text = "\(String(describing: Int(response.main.temp)))"
+        self.cityNameLabel.text = response.name
+        self.descriptionLabel.text = response.weather[0].description
+        self.degreeLabel.text = "\(String(response.main.temp)) ℃"
+        self.cityHighDegreeLabel.text = "\(String(response.main.tempMax)) ℃"
+        self.cityLowDegreeLabel.text = "\(String(response.main.tempMin)) ℃"
+        let icon = response.weather[0].icon
+        self.updateImageView(cityIcon: icon)
     }
 
     func updateImageView(cityIcon: String) {

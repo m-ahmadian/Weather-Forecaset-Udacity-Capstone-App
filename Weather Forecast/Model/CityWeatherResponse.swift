@@ -11,6 +11,8 @@ struct CityWeatherResponse: Codable {
     let main: Main
     let name: String
     let weather: [Weather]
+    let wind: Wind
+
 }
 
 struct Main: Codable {
@@ -36,4 +38,14 @@ struct Weather: Codable {
     let main: String
     let description: String
     let icon: String
+}
+
+struct Wind: Codable {
+    let speed: Double
+    let degree: Int
+
+    enum CodingKeys: String, CodingKey {
+        case speed
+        case degree = "deg"
+    }
 }
