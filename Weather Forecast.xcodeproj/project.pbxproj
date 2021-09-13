@@ -19,6 +19,7 @@
 		2BAE29A026E5C6E500C644E5 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAE299F26E5C6E500C644E5 /* SearchViewController.swift */; };
 		2BAE29A226E5C72F00C644E5 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAE29A126E5C72F00C644E5 /* DetailViewController.swift */; };
 		2BAE29A726E5CAE600C644E5 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAE29A626E5CAE600C644E5 /* Service.swift */; };
+		2BF6A40F26EEEAB700FB33C5 /* CityDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF6A40E26EEEAB700FB33C5 /* CityDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		2BAE299F26E5C6E500C644E5 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = SOURCE_ROOT; };
 		2BAE29A126E5C72F00C644E5 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		2BAE29A626E5CAE600C644E5 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		2BF6A40E26EEEAB700FB33C5 /* CityDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 				2B87AC9C26E6C6E9003F6B9A /* WeatherDataModel.xcdatamodeld */,
 				2B87AC9A26E6C3C9003F6B9A /* CityWeatherResponse.swift */,
 				2BAE29A526E5CAD300C644E5 /* Utility */,
+				2BF6A40E26EEEAB700FB33C5 /* CityDataSource.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -190,6 +193,7 @@
 				2B87AC9926E6BEBA003F6B9A /* DataController.swift in Sources */,
 				2BAE298F26E5C3CF00C644E5 /* InitialViewController.swift in Sources */,
 				2BAE298B26E5C3CF00C644E5 /* AppDelegate.swift in Sources */,
+				2BF6A40F26EEEAB700FB33C5 /* CityDataSource.swift in Sources */,
 				2B87AC9E26E6C6E9003F6B9A /* WeatherDataModel.xcdatamodeld in Sources */,
 				2BAE29A226E5C72F00C644E5 /* DetailViewController.swift in Sources */,
 				2B87AC9B26E6C3C9003F6B9A /* CityWeatherResponse.swift in Sources */,
