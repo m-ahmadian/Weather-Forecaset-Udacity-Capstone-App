@@ -41,7 +41,7 @@ class InitialViewController: UIViewController {
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Weather of your favourite cities"
+        self.title = "Favourite Cities"
         // Set the delegates
         searchView.delegate = self
         tableView.delegate = self
