@@ -21,7 +21,7 @@ class CityDataSource<ObjectType: NSManagedObject, CellType: UITableViewCell>: NS
     var selectCell: (() -> Void)?
     var editActions: (ObjectType) -> [UITableViewRowAction]
 
-    init(tableView: UITableView, tableViewCellIdentifier: String, segueIdentifier: String, managedObjectContext: NSManagedObjectContext, fetchRequest: NSFetchRequest<ObjectType>, configure: @escaping (CellType, ObjectType) -> Void, selectCell: (() -> Void)? = nil, editActions: @escaping (ObjectType) -> [UITableViewRowAction]) {
+    init(tableView: UITableView, tableViewCellIdentifier: String, segueIdentifier: String? = nil, managedObjectContext: NSManagedObjectContext, fetchRequest: NSFetchRequest<ObjectType>, configure: @escaping (CellType, ObjectType) -> Void, selectCell: (() -> Void)? = nil, editActions: @escaping (ObjectType) -> [UITableViewRowAction]) {
 
         self.tableView = tableView
         self.tableViewCellIdentifier = tableViewCellIdentifier

@@ -14,6 +14,7 @@ class InitialViewController: UIViewController {
     // A reference to the core data stack
     var dataController: DataController!
     var fetchedResultsController: NSFetchedResultsController<City>!
+    var cityDataSource: CityDataSource<City, UITableViewCell>!
 
     // MARK: - Outlets
     @IBOutlet weak var refreshButton: UIButton!
@@ -25,27 +26,36 @@ class InitialViewController: UIViewController {
         let fetchRequest: NSFetchRequest<City> = City.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
+        setUpCityDataSource(fetchRequest)
+    }
 
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: "name", cacheName: nil)
-        // Set delegate to self
-        fetchedResultsController.delegate = self
+    func setUpCityDataSource(_ fetchRequest: NSFetchRequest<City>) {
 
-        // Perform fetch on fetchedResultsController with handling errors
-        do {
-            try fetchedResultsController.performFetch()
-        } catch {
-            print("The fetch could not be performed: \(error.localizedDescription)")
-        }
+        cityDataSource = CityDataSource(tableView: tableView, tableViewCellIdentifier: "cityCell", managedObjectContext: dataController.viewContext, fetchRequest: fetchRequest, configure: { cell, aCity in
+            cell.textLabel?.text = aCity.name
+            cell.detailTextLabel?.text = aCity.country
+        }, editActions: { (aCity) -> [UITableViewRowAction] in
+            let deleteButton = UITableViewRowAction(style: .normal, title: "Delete") { rowAction, indexPath in
+                let cityToDelete = aCity
+                self.dataController.viewContext.delete(cityToDelete)
+                try? self.dataController.viewContext.save()
+                if self.tableView.numberOfRows(inSection: 0) == 0 {
+                    self.updateRefreshButtonState()
+                }
+            }
+            deleteButton.backgroundColor = .red
+            return [deleteButton]
+        })
+        tableView.delegate = cityDataSource
+        tableView.dataSource = cityDataSource
     }
 
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Favourite Cities"
-        // Set the delegates
+        // Set the delegate
         searchView.delegate = self
-        tableView.delegate = self
-        tableView.dataSource = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -59,69 +69,29 @@ class InitialViewController: UIViewController {
     }
 
     // MARK: - Navigation
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Inject the dependency of core data stack and passing the selected city if needed, based on the segue destination
         if segue.identifier == "SearchViewController" {
             let searchVC = segue.destination as? SearchViewController
             searchVC?.dataController = dataController
-        } else if segue.identifier == "DetailViewController" {
+        }
+        else if segue.identifier == "DetailViewController" {
             let detailVC = segue.destination as? DetailViewController
             if let indexPath = tableView.indexPathForSelectedRow {
-                detailVC?.city = fetchedResultsController.object(at: indexPath)
+                detailVC?.city = self.cityDataSource.fetchedResultsController.object(at: indexPath)
             }
         }
     }
 
     // MARK: - Helper Methods
-    func deleteCity(at indexPath: IndexPath) {
-        // Get a reference to the object that needs to be deleted
-        let cityToDelete = fetchedResultsController.object(at: indexPath)
-        // Delete the object from the context and save it to persist data to the store
-        dataController.viewContext.delete(cityToDelete)
-        try? dataController.viewContext.save()
-    }
-
     func updateRefreshButtonState() {
         guard tableView.numberOfSections != 0 else {
             refreshButton.isHidden = true
             return
         }
         UIView.transition(with: refreshButton, duration: 0.5, options: .transitionFlipFromRight, animations: {
-            self.refreshButton.isHidden = self.fetchedResultsController.sections?.count == 0
+            self.refreshButton.isHidden = self.cityDataSource.fetchedResultsController.sections?[0].numberOfObjects == 0
         })
-    }
-}
-
-// MARK: - Extension for TableViewDelegate & DataSource methods
-extension InitialViewController: UITableViewDelegate, UITableViewDataSource {
-
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return fetchedResultsController.sections?.count ?? 1
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return fetchedResultsController.sections?[section].numberOfObjects ?? 1
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cityCell", for: indexPath)
-        let city = fetchedResultsController.object(at: indexPath)
-
-        cell.textLabel?.text = city.name
-        cell.detailTextLabel?.text = city.country
-
-        return cell
-    }
-
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        switch editingStyle {
-        case .delete:
-            // Enable the delete feature by caling its helper method
-            deleteCity(at: indexPath)
-        default:
-            () // Unsupported
-        }
     }
 }
 
@@ -143,49 +113,6 @@ extension InitialViewController: UISearchBarDelegate {
             tableView.reloadData()
         } catch {
             print(error.localizedDescription)
-        }
-    }
-}
-
-// MARK: - Extension for FetchedResultsControllerDelegate methods to automatically track and update the UI
-extension InitialViewController: NSFetchedResultsControllerDelegate {
-
-    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        tableView.beginUpdates()
-    }
-
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        tableView.endUpdates()
-    }
-
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        switch type {
-        case .insert:
-            tableView.insertRows(at: [newIndexPath!], with: .fade)
-        case .delete:
-            tableView.deleteRows(at: [indexPath!], with: .fade)
-            updateRefreshButtonState()
-        case .update:
-            tableView.reloadRows(at: [indexPath!], with: .fade)
-        case .move:
-            tableView.moveRow(at: indexPath!, to: newIndexPath!)
-        @unknown default:
-            fatalError()
-        }
-    }
-
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
-        let indexSet = IndexSet(integer: sectionIndex)
-
-        switch type {
-        case .insert:
-            tableView.insertSections(indexSet, with: .fade)
-        case .delete:
-            tableView.deleteSections(indexSet, with: .fade)
-        case .move, .update:
-            fatalError("Invalid change type in controller(_:didChange:atSectionIndex:for:). Only .insert or .delete should be possible.")
-        @unknown default:
-            fatalError()
         }
     }
 }
