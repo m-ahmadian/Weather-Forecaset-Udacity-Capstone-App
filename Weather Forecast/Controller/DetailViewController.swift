@@ -39,6 +39,7 @@ class DetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         activityIndicator.startAnimating()
+        updateBackgroundImage()
     }
 
     // MARK: - Helper Method - Completion Handler
@@ -73,4 +74,46 @@ class DetailViewController: UIViewController {
             self.imageView.image = image
         }
     }
+
+    func updateBackgroundImage() {
+        let hour = Calendar.current.component(.hour, from: Date())
+
+        switch hour {
+        case 6..<17 :
+            view.backgroundColor = UIColor(patternImage: UIImage(named: "Light Mode Sky")!)
+            currentTimeIs(day: true)
+        case 17..<24 :
+            view.backgroundColor = UIColor(patternImage: UIImage(named: "Dark Mode Sky")!)
+            currentTimeIs(day: false)
+        default:
+            view.backgroundColor = UIColor(patternImage: UIImage(named: "Dark Mode Sky")!)
+            currentTimeIs(day: false)
+        }
+    }
+
+    func currentTimeIs(day: Bool) {
+        switch day {
+        case true:
+            cityNameLabel.textColor = .black
+            cityHighDegreeLabel.textColor = .black
+            degreeLabel.textColor = .black
+            cityLowDegreeLabel.textColor = .black
+            descriptionLabel.textColor = .black
+            humidityLabel.textColor = .black
+            humidityDegreeLabel.textColor = .black
+            tempLabel.textColor = .black
+            tempDegreeLabel.textColor = .black
+        case false:
+            cityNameLabel.textColor = .white
+            cityHighDegreeLabel.textColor = .white
+            degreeLabel.textColor = .white
+            cityLowDegreeLabel.textColor = .white
+            descriptionLabel.textColor = .white
+            humidityLabel.textColor = .white
+            humidityDegreeLabel.textColor = .white
+            tempLabel.textColor = .white
+            tempDegreeLabel.textColor = .white
+        }
+    }
+    
 }
