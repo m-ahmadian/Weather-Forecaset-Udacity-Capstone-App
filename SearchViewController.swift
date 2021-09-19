@@ -20,6 +20,7 @@ class SearchViewController: UIViewController, NSFetchedResultsControllerDelegate
     var fetchedResultsController: NSFetchedResultsController<City>!
 
     // MARK: - Outlets
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
 
@@ -116,6 +117,9 @@ extension SearchViewController: UISearchBarDelegate {
             return
         }
 
+        DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(0.2)) {
+            self.activityIndicator.startAnimating()
+        }
         currentSearchTask = Service.searchForCity(url: Service.Endpoints.getCity(searchText).url, completion: handleSearchCityResponse(cities:error:))
     }
 
@@ -128,5 +132,10 @@ extension SearchViewController: UISearchBarDelegate {
         // Fills the cities array with the API response, to power the tableView dataSource
         self.cities = cities
         tableView.reloadData()
+        if activityIndicator.isAnimating {
+            DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
+            }
+        }
     }
 }

@@ -115,5 +115,4 @@ class DetailViewController: UIViewController {
             tempDegreeLabel.textColor = .white
         }
     }
-    
 }
