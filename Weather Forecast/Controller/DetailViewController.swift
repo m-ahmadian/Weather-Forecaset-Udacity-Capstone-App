@@ -46,6 +46,11 @@ class DetailViewController: UIViewController {
     func handleCityWeatherResponse(response: Decodable?, error: Error?) {
         guard let response = response as? CityWeatherResponse else {
             print(error?.localizedDescription ?? "")
+            let alert = UIAlertController(title: "Error Occurred!", message: "The weather forecast could not be found at this time", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default) {_ in
+                self.dismiss(animated: true, completion: nil)
+            }
+            alert.addAction(okAction)
             return
         }
         DispatchQueue.main.async {
