@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "kseniia-ilinykh-crAfJNZRKRE-unsplash.jpg",
+      "filename" : "Light Mode Sky1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "Light Mode Sky2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "Light Mode Sky3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

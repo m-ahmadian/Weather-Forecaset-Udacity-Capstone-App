@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "shotaro-hamasaki-8FU_MZ2r0EQ-unsplash.jpg",
+      "filename" : "Dark Mode Sky@1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "Dark Mode Sky@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "Dark Mode Sky@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
