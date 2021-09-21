@@ -20,20 +20,18 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Weather App-logos_transparent" translatesAutoresizingMaskIntoConstraints="NO" id="qol-WR-a39">
-                                <rect key="frame" x="-75" y="315" width="564" height="267"/>
+                                <rect key="frame" x="7" y="253" width="400" height="400"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="WAZ-Lp-Y3R" secondAttribute="bottom" id="FDM-uv-wQa"/>
-                            <constraint firstItem="qol-WR-a39" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="271" id="OLu-Pf-ZGv"/>
-                            <constraint firstItem="qol-WR-a39" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="-75" id="SWG-jX-VAa"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="WAZ-Lp-Y3R" secondAttribute="trailing" id="UaP-Xi-6pJ"/>
-                            <constraint firstItem="WAZ-Lp-Y3R" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="bhT-z6-a3N"/>
-                            <constraint firstAttribute="trailing" secondItem="qol-WR-a39" secondAttribute="trailing" constant="-75" id="cAc-hz-cX1"/>
-                            <constraint firstItem="WAZ-Lp-Y3R" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="lj7-Wc-Ev3"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="qol-WR-a39" secondAttribute="bottom" constant="280" id="ykT-rr-lPS"/>
+                            <constraint firstItem="qol-WR-a39" firstAttribute="centerY" secondItem="WAZ-Lp-Y3R" secondAttribute="centerY" id="4fJ-cb-myR"/>
+                            <constraint firstItem="WAZ-Lp-Y3R" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Zue-a8-OWa"/>
+                            <constraint firstItem="WAZ-Lp-Y3R" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="b5h-xA-vvg"/>
+                            <constraint firstItem="WAZ-Lp-Y3R" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="eVV-QF-Fyo"/>
+                            <constraint firstItem="WAZ-Lp-Y3R" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="uKF-GQ-KwO"/>
+                            <constraint firstItem="qol-WR-a39" firstAttribute="centerX" secondItem="WAZ-Lp-Y3R" secondAttribute="centerX" id="uZK-y5-r60"/>
                         </constraints>
                     </view>
                 </viewController>
