@@ -82,16 +82,25 @@ class DetailViewController: UIViewController {
 
     func updateBackgroundImage() {
         let hour = Calendar.current.component(.hour, from: Date())
+        let background = UIView()
+        background.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(background)
+        view.sendSubviewToBack(background)
+
+        background.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        background.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        background.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        background.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
 
         switch hour {
         case 6..<17 :
-            view.backgroundColor = UIColor(patternImage: UIImage(named: "Light Mode Sky")!)
+            background.backgroundColor = UIColor(patternImage: UIImage(named: "Light Mode Sky")!)
             currentTimeIs(day: true)
         case 17..<24 :
-            view.backgroundColor = UIColor(patternImage: UIImage(named: "Dark Mode Sky")!)
+            background.backgroundColor = UIColor(patternImage: UIImage(named: "Dark Mode Sky")!)
             currentTimeIs(day: false)
         default:
-            view.backgroundColor = UIColor(patternImage: UIImage(named: "Dark Mode Sky")!)
+            background.backgroundColor = UIColor(patternImage: UIImage(named: "Dark Mode Sky")!)
             currentTimeIs(day: false)
         }
     }
