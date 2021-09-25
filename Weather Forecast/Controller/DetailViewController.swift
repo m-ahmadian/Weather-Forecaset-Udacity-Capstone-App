@@ -11,6 +11,7 @@ class DetailViewController: UIViewController {
 
     // MARK: - Properties
     var city: City!
+    let reachability = try! Reachability()
 
     // MARK: - Outlets
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -40,6 +41,28 @@ class DetailViewController: UIViewController {
         super.viewWillAppear(animated)
         activityIndicator.startAnimating()
         updateBackgroundImage()
+
+        reachability.whenUnreachable = { _ in
+            print("Not reachable")
+            self.activityIndicator.stopAnimating()
+            let alertController = UIAlertController(title: "Connection Error", message: "You are not connected to the internet. Please check you connection and try again!", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default) { [weak self] _ in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    self?.navigationController?.popToRootViewController(animated: true)
+                }
+            }
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
+
+        do {
+            try reachability.startNotifier()
+        } catch {
+            print("Unable to start notifier")
+        }
+    }
+    deinit {
+        reachability.stopNotifier()
     }
 
     // MARK: - Helper Method - Completion Handler
