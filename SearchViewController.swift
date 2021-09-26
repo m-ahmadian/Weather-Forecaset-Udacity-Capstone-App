@@ -117,7 +117,7 @@ extension SearchViewController: UISearchBarDelegate {
             return
         }
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(0.2)) {
+        DispatchQueue.main.async {
             self.activityIndicator.startAnimating()
         }
         currentSearchTask = Service.searchForCity(url: Service.Endpoints.getCity(searchText).url, completion: handleSearchCityResponse(cities:error:))
@@ -127,6 +127,26 @@ extension SearchViewController: UISearchBarDelegate {
     func handleSearchCityResponse(cities: [String]?, error: Error?) {
         guard error == nil else {
             print(error?.localizedDescription ?? "")
+            DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
+            }
+            switch (error as? URLError)?.code {
+                case .some(.timedOut):
+                    let alertController = UIAlertController(title: "Error", message: "Connection Timed Out. Please try again!", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alertController.addAction(okAction)
+                    self.present(alertController, animated: true, completion: nil)
+                case .some(.notConnectedToInternet):
+                    let alertController = UIAlertController(title: "Error", message: "You are not connected to the internet. Please check you connection and try again!", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alertController.addAction(okAction)
+                    self.present(alertController, animated: true, completion: nil)
+                default:
+                    let alertController = UIAlertController(title: "Oops", message: "Something went wrong. Please try again!", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alertController.addAction(okAction)
+                    self.present(alertController, animated: true, completion: nil)
+            }
             return
         }
         // Fills the cities array with the API response, to power the tableView dataSource
