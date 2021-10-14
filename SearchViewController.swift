@@ -58,7 +58,7 @@ class SearchViewController: UIViewController, NSFetchedResultsControllerDelegate
     func addCity(name: String) {
         // Instantiate the managed object associated with the main context
         let city = City(context: dataController.viewContext)
-        // Separate citty name from province and country in the response string
+        // Separate city name from province and country in the response string
         city.name = name.components(separatedBy: ",")[0]
         city.country = name.components(separatedBy: ",")[2]
         try? dataController.viewContext.save()
@@ -92,6 +92,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
 
         if let count = city?.count {
             guard count > 2 && cell.textLabel?.text != nil else {
+                cell.detailTextLabel?.text = ""
                 return cell
             }
             cell.detailTextLabel?.text = city?.components(separatedBy: ",")[2] ?? ""
@@ -142,7 +143,7 @@ extension SearchViewController: UISearchBarDelegate {
                     alertController.addAction(okAction)
                     self.present(alertController, animated: true, completion: nil)
                 default:
-                    let alertController = UIAlertController(title: "Oops", message: "Something went wrong. Please try again!", preferredStyle: .alert)
+                let alertController = UIAlertController(title: "No Results", message: "No results found for \(searchBar.text ?? "your search").", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                     alertController.addAction(okAction)
                     self.present(alertController, animated: true, completion: nil)

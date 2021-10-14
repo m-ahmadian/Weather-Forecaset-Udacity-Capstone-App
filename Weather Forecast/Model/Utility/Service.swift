@@ -90,6 +90,10 @@ class Service {
                         completion([], error)
                     }
                 }
+            } else {
+                DispatchQueue.main.async {
+                    completion([], error)
+                }
             }
         }
         task.resume()
