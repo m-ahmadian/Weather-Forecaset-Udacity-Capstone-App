@@ -13,7 +13,7 @@ class InitialViewController: UIViewController {
     // MARK: - Properties
     // A reference to the core data stack
     var dataController: DataController!
-    var fetchedResultsController: NSFetchedResultsController<City>!
+    let fetchRequest: NSFetchRequest<City> = City.fetchRequest()
     var cityDataSource: CityDataSource<City, UITableViewCell>!
 
     // MARK: - Outlets
@@ -23,7 +23,6 @@ class InitialViewController: UIViewController {
 
     // Function to set up fetch request and fetched results controller
     fileprivate func setUpFetchedResultsController() {
-        let fetchRequest: NSFetchRequest<City> = City.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         setUpCityDataSource(fetchRequest)
@@ -106,13 +105,8 @@ extension InitialViewController: UISearchBarDelegate {
         } else {
             predicate = nil
         }
-        fetchedResultsController.fetchRequest.predicate = predicate
-
-        do {
-            try fetchedResultsController.performFetch()
-            tableView.reloadData()
-        } catch {
-            print(error.localizedDescription)
-        }
+        fetchRequest.predicate = predicate
+        setUpCityDataSource(fetchRequest)
+        tableView.reloadData()
     }
 }
