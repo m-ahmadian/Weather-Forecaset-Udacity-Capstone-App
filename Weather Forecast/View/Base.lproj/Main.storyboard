@@ -78,6 +78,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Cities" id="NJl-NQ-9G4">
+                        <barButtonItem key="leftBarButtonItem" title="Delete all" image="trash" catalog="system" id="EeN-ZZ-xaH">
+                            <connections>
+                                <action selector="deleteAll:" destination="BYZ-38-t0r" id="KXR-Np-AYs"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="4fl-0x-qcT">
                             <connections>
                                 <segue destination="ak6-S2-Oss" kind="show" identifier="SearchViewController" id="B1N-JK-D6c"/>
@@ -320,6 +325,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="trash" catalog="system" width="121" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

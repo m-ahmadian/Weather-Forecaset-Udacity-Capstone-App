@@ -29,7 +29,6 @@ class InitialViewController: UIViewController {
     }
 
     func setUpCityDataSource(_ fetchRequest: NSFetchRequest<City>) {
-
         cityDataSource = CityDataSource(tableView: tableView, tableViewCellIdentifier: "cityCell", managedObjectContext: dataController.viewContext, fetchRequest: fetchRequest, configure: { cell, aCity in
             cell.textLabel?.text = aCity.name
             cell.detailTextLabel?.text = aCity.country
@@ -91,6 +90,27 @@ class InitialViewController: UIViewController {
         UIView.transition(with: refreshButton, duration: 0.5, options: .transitionFlipFromRight, animations: {
             self.refreshButton.isHidden = self.cityDataSource.fetchedResultsController.sections?[0].numberOfObjects == 0
         })
+    }
+
+    // MARK: - Action
+    @IBAction func deleteAll(_ sender: Any) {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "City")
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+
+        let alertController = UIAlertController(title: nil, message: "Are you sure you want to delete all the cities?", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Yes", style: .default) { _ in
+            do {
+                try self.dataController.viewContext.execute(batchDeleteRequest)
+            } catch {
+                // Error Handling
+            }
+            self.setUpFetchedResultsController()
+            self.updateRefreshButtonState()
+        }
+        let cancelAction = UIAlertAction(title: "No", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        self.present(alertController, animated: true, completion: nil)
     }
 }
 
