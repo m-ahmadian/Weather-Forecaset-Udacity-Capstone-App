@@ -103,6 +103,15 @@ class DetailViewController: UIViewController {
         }
     }
 
+    func updateNavBarTextColor(color: UIColor) {
+        let textAttributes = [
+            NSAttributedString.Key.foregroundColor: color,
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 24)
+        ]
+
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
+    }
+
     func updateBackgroundImage() {
         let hour = Calendar.current.component(.hour, from: Date())
         let background = UIView()
@@ -131,6 +140,7 @@ class DetailViewController: UIViewController {
     func currentTimeIs(day: Bool) {
         switch day {
         case true:
+            updateNavBarTextColor(color: .black)
             cityNameLabel.textColor = .black
             cityHighDegreeLabel.textColor = .black
             degreeLabel.textColor = .black
@@ -141,6 +151,7 @@ class DetailViewController: UIViewController {
             tempLabel.textColor = .black
             tempDegreeLabel.textColor = .black
         case false:
+            updateNavBarTextColor(color: .white)
             cityNameLabel.textColor = .white
             cityHighDegreeLabel.textColor = .white
             degreeLabel.textColor = .white
